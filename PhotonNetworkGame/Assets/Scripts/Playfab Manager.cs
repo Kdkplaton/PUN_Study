@@ -5,7 +5,7 @@ using Photon.Realtime;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class PlayfabManager : MonoBehaviour
+public class PlayfabManager : MonoBehaviourPunCallbacks
 {
     [SerializeField] string version;
     [SerializeField] InputField input_email;
@@ -30,6 +30,17 @@ public class PlayfabManager : MonoBehaviour
         };
 
         PlayFabClientAPI.LoginWithEmailAddress(request, Success, Failure);
+    }
+
+    public override void OnConnectedToMaster()
+    {
+        // JoinLobby : 특정 로비를 생성하여 진입하는 함수
+        PhotonNetwork.JoinLobby();
+    }
+
+    public override void OnJoinedLobby()
+    {
+        PhotonNetwork.LoadLevel("Lobby");
     }
 
     void Failure(PlayFabError playFabError)
