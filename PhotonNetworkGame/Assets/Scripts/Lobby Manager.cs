@@ -14,6 +14,7 @@ public class LobbyManager : MonoBehaviourPunCallbacks
     GameObject roomInit;
     string input_roomName;
     [SerializeField] GameObject roomCreation;
+    [SerializeField] Text inputRoomName;
 
     private void Start()
     {
@@ -27,14 +28,14 @@ public class LobbyManager : MonoBehaviourPunCallbacks
     }
     public void ConfirmRoomCreation()
     {
-        string roomName = GameObject.Find("Text_RoomName").GetComponent<Text>().text;
+        string roomName = inputRoomName.text;
         OnCreateRoom(roomName);
-        GetComponentInChildren<Text>().text = null;
+        inputRoomName.text = null;
         roomCreation.SetActive(false);
     }
     public void CloseRoomCreation()
     {
-        GameObject.Find("Text_RoomName").GetComponent<Text>().text = null;
+        inputRoomName.text = null;
         roomCreation.SetActive(false);
     }
 
@@ -45,14 +46,6 @@ public class LobbyManager : MonoBehaviourPunCallbacks
         roomOptions.IsOpen = true;
         roomOptions.IsVisible = true;
         PhotonNetwork.CreateRoom(newRoomName, roomOptions);
-
-        /*
-        GameObject newRoom = Instantiate(roomInit, parentTransform);
-        newRoom.name = newRoomName;
-        newRoom.GetComponentInChildren<Text>().text = string.Format("{0} (1/4)", newRoomName);
-        dictionary.Add(newRoom.name, newRoom);
-        Debug.Log("Room " + newRoom.name + " Created!");
-        */
     }
 
     public void CheckDuplication(List<RoomInfo> roomList, string roomName)
@@ -84,9 +77,30 @@ public class LobbyManager : MonoBehaviourPunCallbacks
                 dictionary.TryGetValue(roominfo.Name, out prefab);
                 Destroy(prefab);
             }
-            else    // Room의 정보가 변경되는 경우
+            else    // Room의 정보가 변경되는 경우 (생성, 갱신)
             {
+                if(roominfo.IsVisible == true)
+                {
+                    for(int i=0; i<dictionary.Count; i++)
+                    {
+                        if (dictionary.ContainsKey(roominfo.Name) == false)        // Room이 생성 되었을 경우
+                        {
+                            string newRoomName = roominfo.Name;
+                            GameObject newRoom = Instantiate(roomInit, parentTransform);
+                            
+                            newRoom.GetComponent<Information>().UpdateDetails(roominfo);
+                            
+                            dictionary.Add(newRoom.name, newRoom);
+                            Debug.Log("Room " + newRoom.name + " Created!");
+                        }
+                        else        // Room이 갱신 되었을 경우
+                        {
+                            dictionary.TryGetValue(roominfo.Name, out prefab);
 
+                            prefab.GetComponent<Information>().UpdateDetails(roominfo);
+                        }
+                    }
+                }
             }
 
         }
