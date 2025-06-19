@@ -384,6 +384,7 @@
 "Assets/Photon/PhotonChat/Demos/DemoChat/NamePickGui.cs"
 "Assets/Photon/PhotonRealtime/Demos/DemoLoadBalancing/ConnectAndJoinRandomLb.cs"
 "Assets/Scripts/Charactor Manager.cs"
+"Assets/Scripts/Charactor.cs"
 "Assets/Scripts/Information.cs"
 "Assets/Scripts/Lobby Manager.cs"
 "Assets/Scripts/Playfab Manager.cs"

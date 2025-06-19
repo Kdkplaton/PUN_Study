@@ -8,8 +8,8 @@ public class CharactorManager : MonoBehaviourPunCallbacks
 
     void Start()
     {
-        PhotonNetwork.Instantiate("Charactor", direction, Quaternion.identity);
-        GameObject.Find("Camera").SetActive(false);
+        PhotonNetwork.Instantiate("Character", direction, Quaternion.identity);
+        // GameObject.Find("Camera").SetActive(false);
     }
 
 
