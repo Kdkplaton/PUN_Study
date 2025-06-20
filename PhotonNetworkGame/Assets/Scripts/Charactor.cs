@@ -8,6 +8,9 @@ public class Charactor : MonoBehaviourPun
     [SerializeField] float speed;
     [SerializeField] Vector3 direction;
 
+    [SerializeField] float mouseX;
+    [SerializeField] float rotationSpeed;
+
     void Awake()
     {
         characterController = GetComponent<CharacterController>();
@@ -15,7 +18,6 @@ public class Charactor : MonoBehaviourPun
     void Start()
     {
         DisableCamera();
-        // direction = new Vector3(0, 0, 0);
     }
     void Update()
     {
@@ -24,6 +26,8 @@ public class Charactor : MonoBehaviourPun
             Control();
 
             Move();
+
+            Rotate();
         }
     }
 
@@ -36,6 +40,8 @@ public class Charactor : MonoBehaviourPun
         else
         {
             virtualCamera.gameObject.SetActive(false);
+
+            virtualCamera.GetComponent<AudioListener>().enabled = false;
         }
         
     }
@@ -45,10 +51,16 @@ public class Charactor : MonoBehaviourPun
         direction.x = Input.GetAxisRaw("Horizontal");
         direction.z = Input.GetAxisRaw("Vertical");
         direction.Normalize();
+
+        mouseX += Input.GetAxisRaw("Mouse X") * rotationSpeed * Time.deltaTime;
     }
     public void Move()
     {
-        characterController.Move(direction);
+        characterController.Move(characterController.transform.TransformDirection(direction) * speed * Time.deltaTime);
+    }
+    public void Rotate()
+    {
+        transform.eulerAngles = new Vector3(0, mouseX, 0);
     }
 
 }

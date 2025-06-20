@@ -1,5 +1,4 @@
 using Photon.Pun;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class CharactorManager : MonoBehaviourPunCallbacks
@@ -8,9 +7,19 @@ public class CharactorManager : MonoBehaviourPunCallbacks
 
     void Start()
     {
+        direction = InitRandomPosition();
         PhotonNetwork.Instantiate("Character", direction, Quaternion.identity);
-        // GameObject.Find("Camera").SetActive(false);
     }
 
+    Vector3 InitRandomPosition()
+    {
+        Vector3 newPos;
+        float randX = Random.Range(0f, 6f);
+        // y값은 고정
+        float randZ = Random.Range(0f, 3f);
+
+        newPos = new Vector3(randX, 4, randZ);
+        return newPos;
+    }
 
 }
