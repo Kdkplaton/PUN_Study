@@ -11,6 +11,7 @@ public class Charactor : MonoBehaviourPun
     [SerializeField] float mouseX;
     [SerializeField] float rotationSpeed;
 
+
     void Awake()
     {
         characterController = GetComponent<CharacterController>();
@@ -18,6 +19,7 @@ public class Charactor : MonoBehaviourPun
     void Start()
     {
         DisableCamera();
+        DisableMyCap();
     }
     void Update()
     {
@@ -61,6 +63,19 @@ public class Charactor : MonoBehaviourPun
     public void Rotate()
     {
         transform.eulerAngles = new Vector3(0, mouseX, 0);
+    }
+
+    public void DisableMyCap()
+    {
+        if (photonView.IsMine)
+        {
+            MeshRenderer[] capRenderers;
+            capRenderers = GameObject.Find("Cap").GetComponentsInChildren<MeshRenderer>();
+
+            foreach (MeshRenderer renderer in capRenderers)
+            { renderer.enabled = false; }
+        }
+        
     }
 
 }

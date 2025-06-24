@@ -8,9 +8,7 @@ public class Mouse : MonoBehaviourPun
 {
 
     void Start()
-    {
-       SetMouse(false);
-    }
+    { SetMouse(false); }
 
     void Update()
     {
@@ -36,5 +34,6 @@ public class Mouse : MonoBehaviourPun
 
     private void OnDestroy()
     { SetMouse(true); }
+
 
 }

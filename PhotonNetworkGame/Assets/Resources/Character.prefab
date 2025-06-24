@@ -2121,6 +2121,7 @@ GameObject:
   - component: {fileID: 8829322765205369729}
   - component: {fileID: 1777162817767430037}
   - component: {fileID: 526785147058173663}
+  - component: {fileID: 1805268015729772057}
   m_Layer: 0
   m_Name: Virtual Camera
   m_TagString: Untagged
@@ -2137,7 +2138,7 @@ Transform:
   m_GameObject: {fileID: 7530144934213349293}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0.32, z: 0.3}
+  m_LocalPosition: {x: 0, y: 0.4, z: 0.5}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -2202,6 +2203,20 @@ AudioListener:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7530144934213349293}
   m_Enabled: 1
+--- !u!114 &1805268015729772057
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7530144934213349293}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 71c11ca7f7109a0428ad9ca638c4cc57, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  head: {fileID: 8829322765205369729}
+  rotationSpeed: 3000
 --- !u!1 &7860833170273085749
 GameObject:
   m_ObjectHideFlags: 0
