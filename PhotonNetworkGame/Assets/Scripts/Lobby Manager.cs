@@ -109,7 +109,7 @@ public class LobbyManager : MonoBehaviourPunCallbacks
     }
 
 
-    public void DeleteRoom()
+    public void RemoveRoom()
     {
 
 
