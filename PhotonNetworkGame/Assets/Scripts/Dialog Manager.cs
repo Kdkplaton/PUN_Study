@@ -6,7 +6,8 @@ using UnityEngine.UI;
 
 public class DialogManager : MonoBehaviourPunCallbacks
 {
-    [SerializeField] Transform chattingField;
+    [SerializeField] Transform content;
+    [SerializeField] ScrollRect scrollRect;
     [SerializeField] InputField inputField;
     GameObject Msg;
 
@@ -19,26 +20,41 @@ public class DialogManager : MonoBehaviourPunCallbacks
     {
         if (Input.GetKeyDown(KeyCode.Return))
         {
+
             inputField.ActivateInputField();
 
             if (inputField.text.Length <= 0)
             { return; }
             else
             {
-                // 내 클라이언트에 메시지 띄우는 작업
-                GameObject newMsg = Instantiate(Msg, chattingField);
-                newMsg.GetComponent<Text>().text = inputField.text;
+                // RpcTarget.All : 현재 룸에 있는 모든 클라이언트 (자신 포함)
+                // RpcTarget.Others : 자신 제외 나머지 클라이언트 모두
+                // RpcTarget.MasterClient : 마스터(방장) 클라이언트 만
+                photonView.RPC("Talk", RpcTarget.All, inputField.text);
+
                 inputField.text = "";
             }
         }
-
-        // UpdateChattingField();
     }
 
-    public void UpdateChattingField()
+    [PunRPC]
+    void Talk(string msg)
     {
-        // 상대 채팅을 내 채팅창에 띄워주는 작업?
-        // ???
+        // prefab을 하나 생성
+        GameObject newMsg = Instantiate(Msg);
+
+        // 생성한 오브젝트의 Text 컴포넌트 접근하여 text 설정
+        newMsg.GetComponent<Text>().text = msg;
+
+        // 스크롤 뷰 - content 오브젝트의 자식으로 등록
+        newMsg.transform.SetParent(content);
+
+        // Canvas를 수동으로 동기화
+        Canvas.ForceUpdateCanvases();
+
+        // 스크롤의 위치를 초기화
+        scrollRect.verticalNormalizedPosition = 0.0f;
+
     }
 
 }

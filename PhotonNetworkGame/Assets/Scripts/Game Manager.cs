@@ -2,15 +2,14 @@ using System;
 using UnityEngine;
 using Photon.Pun;
 using Photon.Realtime;
+using UnityEngine.UI;
 
 public class GameManager : MonoBehaviourPunCallbacks
 {
     double time;
     double initializeTime;
-
-    int min;
-    int sec;
-    int mil;
+    int min, sec, mil;
+    [SerializeField] Text timeText;
 
     void Start()
     {
@@ -26,7 +25,8 @@ public class GameManager : MonoBehaviourPunCallbacks
         mil = (int)(time % 1 * 100);
 
         string elapsedTime = $"{min:D2}:{sec:D2}:{mil:D2}";
-        Debug.Log("경과시간 : " + elapsedTime);
+        timeText.text = elapsedTime;
+        //Debug.Log("경과시간 : " + elapsedTime);
     }
 
 
