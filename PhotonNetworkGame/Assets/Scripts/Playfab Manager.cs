@@ -15,7 +15,7 @@ public class PlayfabManager : MonoBehaviourPunCallbacks
 
     void Update()
     {
-        Input_KeyBoard();       // TabÅ° ÀÌµ¿ ±¸Çö
+        Input_KeyBoard();       // TabÅ° ï¿½Ìµï¿½ ï¿½ï¿½ï¿½ï¿½
     }
 
     void Success(LoginResult loginResult)
@@ -41,7 +41,7 @@ public class PlayfabManager : MonoBehaviourPunCallbacks
 
     public override void OnConnectedToMaster()
     {
-        // JoinLobby : Æ¯Á¤ ·Îºñ¸¦ »ý¼ºÇÏ¿© ÁøÀÔÇÏ´Â ÇÔ¼ö
+        // JoinLobby : Æ¯ï¿½ï¿½ ï¿½Îºï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ï¿ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ï´ï¿½ ï¿½Ô¼ï¿½
         PhotonNetwork.JoinLobby();
     }
 
@@ -74,7 +74,7 @@ public class PlayfabManager : MonoBehaviourPunCallbacks
             {
                 InputField inputfield = next.GetComponent<InputField>();
                 
-                if (inputfield != null)     // Æ÷Ä¿½º ÀÌµ¿½Ã ÀÔ·ÂÃ¢ÀÌ ¼±ÅÃµÇÁö ¾Ê´Â °æ¿ì
+                if (inputfield != null)     // ï¿½ï¿½Ä¿ï¿½ï¿½ ï¿½Ìµï¿½ï¿½ï¿½ ï¿½Ô·ï¿½Ã¢ï¿½ï¿½ ï¿½ï¿½ï¿½Ãµï¿½ï¿½ï¿½ ï¿½Ê´ï¿½ ï¿½ï¿½ï¿½
                 { inputfield.OnPointerClick(new PointerEventData(system)); }
                     
                 system.SetSelectedGameObject(next.gameObject);
