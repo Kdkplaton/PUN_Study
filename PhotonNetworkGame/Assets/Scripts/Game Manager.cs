@@ -13,7 +13,6 @@ public class GameManager : MonoBehaviourPunCallbacks
 
     void Start()
     {
-        // 시간측정 시작지점
         initializeTime = PhotonNetwork.Time;
     }
 
