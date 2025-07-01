@@ -12,6 +12,12 @@ public class PlayfabManager : MonoBehaviourPunCallbacks
     [SerializeField] string version;
     [SerializeField] InputField input_email;
     [SerializeField] InputField input_password;
+    GameObject failure;
+
+    private void Awake()
+    {
+        failure = GameObject.Find("Failure Panel");
+    }
 
     void Update()
     {
@@ -52,7 +58,11 @@ public class PlayfabManager : MonoBehaviourPunCallbacks
 
     void Failure(PlayFabError playFabError)
     {
-        Debug.Log(playFabError.GenerateErrorReport());
+        string msg = playFabError.GenerateErrorReport();
+        Debug.Log(msg);
+
+        failure.SetActive(true);
+        failure.GetComponent<Failure>().Message(msg);
     }
 
     void Input_KeyBoard()

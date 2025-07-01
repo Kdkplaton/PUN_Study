@@ -7,6 +7,7 @@ public class ProfileManager : MonoBehaviour
 {
     [SerializeField] InputField inputField;
     [SerializeField] GameObject profilePanel;
+    [SerializeField] Text usernameText;
 
     void Awake()
     {
@@ -39,17 +40,21 @@ public class ProfileManager : MonoBehaviour
     {
         string name = updateUserTitleDisplayNameResult.DisplayName;
         Debug.Log("name : " + name);
+        
         if (string.IsNullOrEmpty(name)) { return; }
-        else { profilePanel.SetActive(false); }
+        else {
+            profilePanel.SetActive(false);
+            usernameText.text = string.Format("Hello, {0}!", name);
+        }
     }
-
     void Success(GetAccountInfoResult getAccountInfoResult)
     {
         string name = getAccountInfoResult.AccountInfo.TitleInfo.DisplayName;
         Debug.Log("name : " + name);
+        usernameText.text = string.Format("Hello, {0}!", name);
+
         if (string.IsNullOrEmpty(name)) { profilePanel.SetActive(true); }
     }
-
     void Failure(PlayFabError playFabError)
     {
         Debug.Log(playFabError.GenerateErrorReport());
