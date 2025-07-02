@@ -496,7 +496,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   characterController: {fileID: 0}
   virtualCamera: {fileID: 1777162817767430037}
-  speed: 20
+  speed: 10
   direction: {x: 0, y: 0, z: 0}
   mouseX: 0
   rotationSpeed: 3000

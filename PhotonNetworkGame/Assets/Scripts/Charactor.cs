@@ -83,4 +83,11 @@ public class Charactor : MonoBehaviourPun
         
     }
 
+    void OnTriggerEnter(Collider other)
+    {
+        if(other.CompareTag("Authorized"))
+        { PhotonNetwork.Destroy(other.gameObject); }
+
+    }
+
 }

@@ -29,8 +29,14 @@ public class MasterManger : MonoBehaviourPunCallbacks
         {
             if(PhotonNetwork.CurrentRoom != null)
             {
-                initPos += new Vector3(val, 0, 0);
-                PhotonNetwork.InstantiateRoomObject("Unit", initPos, initRot);
+                if (!GameObject.Find("Unit(Clone)"))
+                {
+                    initPos += new Vector3(val, 0, 0);
+                    PhotonNetwork.InstantiateRoomObject("Unit", initPos, initRot);
+                }
+                else {
+                    // 실행 내용 없음
+                }
             }
 
             yield return WFS_5f;

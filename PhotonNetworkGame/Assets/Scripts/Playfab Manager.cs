@@ -1,23 +1,16 @@
+using Photon.Pun;
 using PlayFab;
 using PlayFab.ClientModels;
-using Photon.Pun;
-using Photon.Realtime;
 using UnityEngine;
-using UnityEngine.UI;
 using UnityEngine.EventSystems;
-using ExitGames.Client.Photon.StructWrapping;
+using UnityEngine.UI;
 
 public class PlayfabManager : MonoBehaviourPunCallbacks
 {
     [SerializeField] string version;
     [SerializeField] InputField input_email;
     [SerializeField] InputField input_password;
-    GameObject failure;
-
-    private void Awake()
-    {
-        failure = GameObject.Find("Failure Panel");
-    }
+    [SerializeField] GameObject failurePanel;
 
     void Update()
     {
@@ -58,11 +51,14 @@ public class PlayfabManager : MonoBehaviourPunCallbacks
 
     void Failure(PlayFabError playFabError)
     {
+        input_email.text = "";
+        input_password.text = "";
+
         string msg = playFabError.GenerateErrorReport();
         Debug.Log(msg);
 
-        failure.SetActive(true);
-        failure.GetComponent<Failure>().Message(msg);
+        failurePanel.GetComponent<Failure>().Message(msg);
+        failurePanel.SetActive(true);
     }
 
     void Input_KeyBoard()

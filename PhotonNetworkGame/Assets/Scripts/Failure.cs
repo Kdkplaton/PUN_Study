@@ -8,11 +8,14 @@ public class Failure : MonoBehaviour
     [SerializeField] Text failureText;
 
     public void Message(string error)
-    { failureText.text = error; }
+    {
+        string msg = error.Split(" ", 2)[1];
+        failureText.text = msg;
+    }
 
-    public void Btn_Clicked()
+    public void Confirm()
     {
         failureText.text = "";
-        gameObject.SetActive(true);
+        gameObject.SetActive(false);
     }
 }
