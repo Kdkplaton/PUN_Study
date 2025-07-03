@@ -20,7 +20,7 @@ public class MasterManger : MonoBehaviourPunCallbacks
         StartCoroutine(CreateUnit());
     }
 
-    public IEnumerator CreateUnit()
+    public IEnumerator CreateUnit() 
     {
         Vector3 initPos = initTransform.position;
         Quaternion initRot = initTransform.rotation;

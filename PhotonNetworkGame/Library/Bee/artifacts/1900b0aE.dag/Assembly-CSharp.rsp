@@ -393,7 +393,6 @@
 "Assets/Scripts/Information.cs"
 "Assets/Scripts/Lobby Manager.cs"
 "Assets/Scripts/Master Manger.cs"
-"Assets/Scripts/Mouse.cs"
 "Assets/Scripts/Playfab Manager.cs"
 "Assets/Scripts/Profile Manager.cs"
 -langversion:9.0
