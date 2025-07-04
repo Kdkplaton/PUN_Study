@@ -11,8 +11,10 @@ public class LobbyManager : MonoBehaviourPunCallbacks
 {
     Dictionary<string, GameObject> dictionary = new Dictionary<string, GameObject>();
     [SerializeField] Transform parentTransform;
+    
     GameObject roomInit;
     string input_roomName;
+    
     [SerializeField] GameObject roomCreation;
     [SerializeField] Text inputRoomName;
 
@@ -37,6 +39,12 @@ public class LobbyManager : MonoBehaviourPunCallbacks
     {
         inputRoomName.text = null;
         roomCreation.SetActive(false);
+    }
+
+    public override void OnConnectedToMaster()
+    {
+        if(PhotonNetwork.InLobby == false)
+        { PhotonNetwork.JoinLobby(); }
     }
 
     public void OnCreateRoom(string newRoomName)
@@ -104,14 +112,6 @@ public class LobbyManager : MonoBehaviourPunCallbacks
             }
 
         }
-
-
-    }
-
-
-    public void RemoveRoom()
-    {
-
 
 
     }

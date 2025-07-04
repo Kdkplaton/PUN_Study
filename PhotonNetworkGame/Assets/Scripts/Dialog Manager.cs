@@ -20,17 +20,18 @@ public class DialogManager : MonoBehaviourPunCallbacks
     {
         if (Input.GetKeyDown(KeyCode.Return))
         {
-
             inputField.ActivateInputField();
 
             if (inputField.text.Length <= 0)
             { return; }
             else
             {
+                string msg = $"{PhotonNetwork.LocalPlayer.NickName} : {inputField.text}";
+
                 // RpcTarget.All : 현재 룸에 있는 모든 클라이언트 (자신 포함)
                 // RpcTarget.Others : 자신 제외 나머지 클라이언트 모두
                 // RpcTarget.MasterClient : 마스터(방장) 클라이언트 만
-                photonView.RPC("Talk", RpcTarget.All, inputField.text);
+                photonView.RPC("Talk", RpcTarget.All, msg);
 
                 inputField.text = "";
             }
@@ -38,11 +39,11 @@ public class DialogManager : MonoBehaviourPunCallbacks
     }
 
     [PunRPC]
-    void Talk(string msg)
+    public void Talk(string msg)
     {
         // prefab을 하나 생성
         GameObject newMsg = Instantiate(Msg);
-
+        
         // 생성한 오브젝트의 Text 컴포넌트 접근하여 text 설정
         newMsg.GetComponent<Text>().text = msg;
 

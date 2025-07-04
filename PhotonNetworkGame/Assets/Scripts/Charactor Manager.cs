@@ -16,7 +16,6 @@ public class CharactorManager : MonoBehaviourPunCallbacks
         Vector3 direction = transformList[index].position;
         PhotonNetwork.Instantiate("Character", direction, Quaternion.identity);
 
-        
     }
 
     /*

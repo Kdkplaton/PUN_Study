@@ -14,9 +14,14 @@ public class GameManager : MonoBehaviourPunCallbacks
 
     void Start()
     {
-        SetMouse(false);
+        if (photonView.IsMine)
+        { SetMouse(false); }
 
-        initializeTime = PhotonNetwork.Time;
+        if(PhotonNetwork.IsMasterClient)
+        {
+            initializeTime = PhotonNetwork.Time;
+            photonView.RPC("InitializeTime", RpcTarget.AllBuffered, initializeTime);
+        }
     }
 
     void Update()
@@ -37,12 +42,20 @@ public class GameManager : MonoBehaviourPunCallbacks
                 SetMouse(true);
                 pausePanel.SetActive(true);
             }
+
+            if (Input.GetKeyDown(KeyCode.LeftAlt))
+            {
+                if (Cursor.visible == false)
+                { SetMouse(true); }
+                else
+                { SetMouse(false); }
+            }
         }
     }
 
     public void Continue()
     {
-        if(photonView.IsMine)
+        if (photonView.IsMine)
         {
             SetMouse(false);
             pausePanel.SetActive(false);
@@ -57,7 +70,22 @@ public class GameManager : MonoBehaviourPunCallbacks
     public override void OnLeftRoom()
     {
         PhotonNetwork.LoadLevel("Lobby");
+    }  
+
+    public override void OnPlayerEnteredRoom(Player newPlayer)
+    {
+        base.OnPlayerEnteredRoom(newPlayer);
+
+        if(PhotonNetwork.CurrentRoom.PlayerCount >= PhotonNetwork.CurrentRoom.MaxPlayers)
+        {
+            PhotonNetwork.CurrentRoom.IsOpen = false;
+        }
+
     }
+
+    [PunRPC]
+    void InitializeTime(double time)
+    { initializeTime = time; }
 
     void SetMouse(bool state)
     {
@@ -67,7 +95,11 @@ public class GameManager : MonoBehaviourPunCallbacks
             Cursor.lockState = (CursorLockMode)Convert.ToInt32(!state);
         }
     }
+
     private void OnDestroy()
-    { SetMouse(true); }
+    {
+        if (photonView.IsMine)
+        { SetMouse(true); }
+    }
 
 }

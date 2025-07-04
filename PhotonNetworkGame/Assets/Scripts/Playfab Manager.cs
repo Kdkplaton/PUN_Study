@@ -1,9 +1,11 @@
 using Photon.Pun;
 using PlayFab;
 using PlayFab.ClientModels;
+using System;
+using System.Collections;
 using UnityEngine;
-using UnityEngine.EventSystems;
 using UnityEngine.UI;
+using UnityEngine.EventSystems;
 
 public class PlayfabManager : MonoBehaviourPunCallbacks
 {
@@ -17,13 +19,13 @@ public class PlayfabManager : MonoBehaviourPunCallbacks
         Input_KeyBoard();       // TabŰ �̵� ����
     }
 
-    void Success(LoginResult loginResult)
+    public void Success(LoginResult loginResult)
     {
         PhotonNetwork.AutomaticallySyncScene = false;
 
         PhotonNetwork.GameVersion = version;
 
-        PhotonNetwork.ConnectUsingSettings();
+        StartCoroutine(Connect());
 
     }
 
@@ -38,10 +40,20 @@ public class PlayfabManager : MonoBehaviourPunCallbacks
         PlayFabClientAPI.LoginWithEmailAddress(request, Success, Failure);
     }
 
-    public override void OnConnectedToMaster()
+    IEnumerator Connect()
     {
-        // JoinLobby : Ư�� �κ� �����Ͽ� �����ϴ� �Լ�
+        // Master Server로 연결
+        PhotonNetwork.ConnectUsingSettings();
+
+        // 서버 연결이 완료되거나 시간 초과될 때 까지 대기
+        while (PhotonNetwork.IsConnectedAndReady == false)
+        {   
+            yield return null;
+        }
+
+        // 특정 로비를 생성하여 진입하는 함수
         PhotonNetwork.JoinLobby();
+
     }
 
     public override void OnJoinedLobby()

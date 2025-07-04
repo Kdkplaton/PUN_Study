@@ -44,14 +44,14 @@ public class ProfileManager : MonoBehaviour
         if (string.IsNullOrEmpty(name)) { return; }
         else {
             profilePanel.SetActive(false);
-            usernameText.text = string.Format("Hello, {0}!", name);
+            usernameText.text = $"¹Ý°©½À´Ï´Ù, {name}!";
         }
     }
     void Success(GetAccountInfoResult getAccountInfoResult)
     {
         string name = getAccountInfoResult.AccountInfo.TitleInfo.DisplayName;
         Debug.Log("name : " + name);
-        usernameText.text = string.Format("Hello, {0}!", name);
+        usernameText.text = $"¹Ý°©½À´Ï´Ù, {name}!";
 
         if (string.IsNullOrEmpty(name)) { profilePanel.SetActive(true); }
     }
